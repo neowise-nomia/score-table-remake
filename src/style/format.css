@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    /* border: 1px #000 solid; */
+}
+
+.f {
+    display: flex;
+    align-items: center;
+}
+
+.f.c {
+    justify-content: center;
+}
+
+.f.v {
+    flex-direction: column;
+}
+
+.f.a {
+    justify-content: space-around;
+}
+
+.f.b {
+    justify-content: space-between;
+}
+
+.f.e {
+    justify-content: flex-end;
+}
+
+.f.s {
+    justify-content: flex-start;
+}
+
+.f.sc {
+    justify-content: safe center;
+}

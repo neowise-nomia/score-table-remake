@@ -1,0 +1,659 @@
+body {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    animation: appare 300ms ease-in-out;
+    background: url('./bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-origin: content-box;
+    background-size: cover;
+}
+
+@keyframes appare {
+    0% {
+        opacity: 0;
+        transform: translateY(-100px);
+    } 100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    width: 800px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 300ms;
+}
+
+button {
+    outline: none; 
+}
+
+.header .card {
+    width: 200px;
+    height: 100px;
+    transition: 300ms;
+    box-shadow: #0001 2px 2px 3px, #0001 -2px -2px 3px;
+    user-select: none;
+    cursor: pointer !important;
+    /* background-color: #fff7; */
+    /* backdrop-filter: blur(3px); */
+}
+
+.header .card:hover {
+    height: 200px;
+    box-shadow: #0004 2px 2px 7px, #0004 -2px -2px 7px;
+}
+
+.header .card .up {
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    width: 200px;
+    height: 100px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 300ms;
+}
+
+.header .card .down {
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    width: 200px;
+    height: 100px;
+    text-transform: capitalize;
+    font-size: small;
+    transition: 300ms;
+}
+
+.header .card .down span {
+    text-align: center;
+}
+
+.header .card:hover .up {
+    height: 100px;
+}
+
+.header .card:hover .down {
+    height: 100px;
+    transform: translateY(100px);
+}
+
+.header .card.history:hover .down {
+    background-color: teal;
+}
+
+.header .card.create:hover .down {
+    background-color: red;
+}
+
+.header .card.import:hover .down {
+    background-color: yellow;
+}
+
+/*active */
+.header.active {
+    width: 600px;
+    height: 50px;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.header.active .card {
+    width: 200px;
+    height: 50px;
+    transition: 300ms;
+    /* box-shadow: #0001 2px 2px 3px, #0001 -2px -2px 3px; */
+}
+
+.header.active .card .up {
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    width: 200px;
+    height: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 300ms;
+}
+
+.header.active .card .down {
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    width: 0px;
+    height: 0px;
+    text-transform: capitalize;
+    font-size: small;
+    transition: 300ms;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.header.active .card .down span {
+    text-align: center;
+}
+
+/* .header.active .card:hover .down {
+    height: 100px;
+    transform: translateY(100px);
+} */
+
+.header.active .card.history:hover .up {
+    background-color: teal;
+}
+
+.header.active .card.create:hover .up {
+    background-color: red;
+}
+
+.header.active .card.import:hover .up {
+    background-color: yellow;
+}
+
+.header.active .card.history.active .up {
+    background-color: teal;
+}
+
+.header.active .card.create.active .up {
+    background-color: red;
+}
+
+.header.active .card.import.active .up {
+    background-color: yellow;
+}
+
+.panel {
+    width: 800px;
+    height: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    box-shadow: #0001 2px 2px 3px, #0001 -2px -2px 3px;
+    background-color: #fff;
+    /* backdrop-filter: blur(3px); */
+    transition: 500ms !important;
+}
+
+.panel.active {
+    box-shadow: #0004 2px 2px 7px, #0004 -2px -2px 7px;
+    /* z-index: 2; */
+}
+
+.panel.history {
+    overflow-x: auto;
+    overflow-y: hidden;
+    /* padding: 20px; */
+}
+
+.panel.history.hidden {
+    left: calc(100vw + 800px);
+    transform: translateY(-50%);
+}
+
+.panel.history.wait2 {
+    transform: translate(-60%, -50%);
+}
+
+.panel.history.wait1 {
+    transform: translate(-55%, -50%);
+}
+
+.panel.history.focus {
+    transform: translate(-50%, -50%);
+}
+
+.panel.history .inner {
+    align-self: auto;
+    width: auto;
+    height: 300px;
+    position: relative;
+    margin: auto;
+}
+
+
+.panel.history .inner .table {
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 130px;
+    height: 300px;
+    box-shadow: #0001 2px 2px 3px, #0001 -2px -2px 3px;
+    transition: 300ms;
+    cursor: pointer !important;
+}
+
+
+.panel.history .inner .table .name {
+    width: 130px;
+    height: 200px;
+    /* background-color: var(--card-bg); */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    overflow: hidden;
+}
+
+.panel.history .inner .table .name::before {
+    content: '';
+    width: 50px;
+    border-radius: 50px;
+    height: 50px;
+    background-color: var(--card-bg);
+    position: relative;
+    transition: 300ms;
+    transform: translate(-50px, 50px);
+}
+
+.panel.history .inner .table:hover .name::before {
+    width: 130px;
+    border-radius: 130px;
+    height: 130px;
+    transform: translate(50px, -50px);
+}
+
+.panel.history .inner .table:active{
+    /* transform: translateY(-20px); */
+    background-color: turquoise;
+}
+
+.panel.history .inner .table .name span {
+    z-index: 3;
+    position: absolute;
+    width: 130px;
+    text-align: center;
+}
+
+.panel.history .inner .table:hover {
+    transform: translateY(-10px);
+    box-shadow: #0003 2px 2px 6px, #0003 -2px -2px 6px;
+}
+
+.panel.history .inner .table .description {
+    width: 130px;
+    height: 100px;
+}
+
+.panel.history .inner .table .description span {
+    font-size: x-small;
+    text-align: center;
+}
+
+.panel.create.hidden {
+    /* transform: translate(-50%, -50%); */
+    left: calc(100vw + 800px);
+    transform: translateY(-50%);
+}
+
+.panel.create.focus {
+    transform: translate(-50%, -50%);
+}
+
+.panel.create.wait {
+    transform: translate(-55%, -50%);
+}
+
+.panel.create .create-name {
+    width: 80%;
+    height: 30px;
+    transition: 300ms;
+    margin-top: 2px;
+}
+
+.panel.create .create-name:hover {
+    box-shadow: #0003 2px 2px 6px, #0003 -2px -2px 6px;
+}
+
+.panel.create .create-name span {
+    font-size: smaller;
+}
+
+.panel.create .create-name input {
+    width: 400px;
+    height: 30px;
+    border: none;
+    outline: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 15px;
+    overflow: hidden;
+    color: #888;
+}
+
+.panel.create .create-name input:focus::after {
+    transform: translateY(0);
+}
+
+.panel.create .table {
+    width: 70%;
+    height: 80%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: 300ms;
+}
+
+.panel.create .table .inner {
+    width: 80%;
+    position: relative;
+    /* left: 50%; */
+    /* transform: translateX(-50%); */
+    margin: auto;
+    transition: 300ms;
+}
+
+.panel.create .table::-webkit-scrollbar {
+    width: 5px;
+}
+
+.panel.create .table::-webkit-scrollbar-track {
+    background-color: #0002;
+}
+
+.panel.create .table::-webkit-scrollbar-thumb {
+    background-color: #0005;
+}
+
+.panel.create .table .subject {
+    width: 100%;
+    height: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    transition: 300ms;
+    overflow: hidden;
+}
+
+.panel.create .table .subject:not(:last-child) {
+    /* border-bottom: 1px #2224 solid; */
+}
+
+.panel.create .table .subject:hover {
+    box-shadow: #0001 2px 2px 4px, #0001 -2px -2px 4px;
+    /* transform: translateY(-2px); */
+    border: none;
+} 
+
+.panel.create .table .subject label {
+    transition: 290ms;
+    position: absolute;
+}
+
+.panel.create .table .subject:hover label {
+    /* transform: translateX(27px); */
+}
+
+.panel.create .table .subject span {
+    width: 100%;
+    height: 100%;
+}
+
+.panel.create .table .subject button {
+    width: 60px;
+    height: 30px;
+    background-color: #fff;
+    border: none;
+    transition: 300ms;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    transform-origin: right;
+    transform: translateX(100%);
+    visibility: hidden;
+}
+
+.panel.create .table .subject:hover button {
+    background-color: #f00;
+    transform: translateX(0%);
+    visibility: visible;
+    opacity: 1;
+    
+}
+ 
+.panel.create .button {
+    width: 100%;
+    height: 40px;
+}
+
+.panel.create .button button {
+    width: 90px;
+    height: 30px;
+    border: none;
+    background-color: #fff;
+    transition: 300ms;
+}
+
+.panel.create .button button.clear-list:hover {
+    background-color: rgb(255, 77, 121);
+}
+
+.panel.create .button button.create-table:hover {
+    background-color: rgb(15, 148, 115);
+}
+
+.panel.create .button button.add-subject:hover {
+    background-color: rgb(166, 251, 54);
+}
+
+.panel.import.focus {
+    transform: translate(-50%, -50%);
+}
+
+.panel.import.hidden {
+    left: calc(100vw + 800px);
+    transform: translateY(-50%);
+}
+
+.panel.import .select-file {
+    width: 80%;
+    height: 30px;
+    overflow: hidden;
+    transition: 300ms;
+    letter-spacing: 2px;
+}
+.panel.import .select-file:hover {
+    background-color: yellow;
+    box-shadow: #0004 2px 2px 7px, #0004 -2px -2px 7px;
+}
+
+.panel.import .select-file div, .panel.import .select-file input {
+    width: 100%;
+    height: 100%;
+}
+
+.panel.import .select-file input {
+    transform: translateY(-100%);
+    opacity: 0;
+    cursor: pointer !important;
+}
+
+.panel.import .preview {
+    width: 100%;
+    height: 70%;
+}
+
+.panel.import .button {
+    width: 100%;
+    height: 30px;
+}
+
+.panel.import .button button {
+    width: 90px;
+    height: 30px;
+    background-color: #fff;
+    border: none;
+    cursor: pointer !important;
+    transition: 300ms;
+}
+
+.panel.import .button button.imp-all:hover {
+    background-color: teal;
+}
+
+.panel.import .button button.imp-subject:hover {
+    background-color: yellow;
+}
+
+.panel.import .button button.imp-add:hover {
+    background-color: violet;
+}
+
+.panel.import .button button.imp-clr:hover {
+    background-color: red;
+}
+
+
+.panel.import .preview {
+    width: 100%;
+    height: 80%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.panel.import .preview .inner {
+    width: 80%;
+    position: relative;
+    /* left: 50%; */
+    /* transform: translateX(-50%); */
+    margin: auto;
+    transition: 300ms;
+}
+
+.panel.import .preview::-webkit-scrollbar {
+    width: 5px;
+}
+
+.panel.import .preview::-webkit-scrollbar-track {
+    background-color: #0002;
+}
+
+.panel.import .preview::-webkit-scrollbar-thumb {
+    background-color: #0005;
+}
+
+.panel.import .preview .subject {
+    width: 100%;
+    height: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    transition: 300ms;
+    overflow: hidden;
+}
+
+.panel.import .preview .subject:hover {
+    box-shadow: #0001 2px 2px 4px, #0001 -2px -2px 4px;
+    /* transform: translateY(-2px); */
+    border: none;
+} 
+
+.panel.import .preview .subject label {
+    transition: 290ms;
+    position: absolute;
+}
+
+.panel.import .preview .subject span {
+    width: 100%;
+    height: 100%;
+}
+
+.panel.import .preview .subject button {
+    width: 60px;
+    height: 30px;
+    background-color: #fff;
+    border: none;
+    transition: 300ms;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    transform-origin: right;
+    transform: translateX(100%);
+    visibility: hidden;
+}
+
+.panel.import .preview .subject:hover button {
+    background-color: #f00;
+    transform: translateX(0%);
+    visibility: visible;
+    opacity: 1;
+}
+
+.p-pan {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    backdrop-filter: blur(0) grayscale(0) brightness(1);
+    transition: 500ms;
+}
+
+.p-pan.active {
+    visibility: visible;
+    backdrop-filter: blur(3px) grayscale(1) brightness(0.5);
+}
+
+.popup {
+    position: absolute;
+    z-index: 20;
+    top: 40%;
+    opacity: 0;
+    visibility: hidden;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    box-shadow: #0004 2px 2px 7px, #0004 -2px -2px 7px;
+    transition: 300ms;
+}
+
+.p-pan.active .popup {
+    top: 50%;
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup.add-subject {
+    width: 400px;
+    height: 200px;
+}
+
+.popup.add-subject .p-header, .popup.add-subject .p-button {
+    width: 100%;
+    height: 30px;
+}
+.popup.add-subject .p-body {
+    width: 100%;
+    height: 50%;
+}
+.popup.add-subject .p-body input {
+    width: 90%;
+    height: 40px;
+    outline: none;
+    font-size: 20px;
+    color: #888;
+    text-align: center;
+}
+
+.popup.add-subject .p-button button {
+    width: 100%;
+    height: 100%;
+    background-color: #0000;
+    border: none;
+    transition: 300ms;
+}
+
+.popup.add-subject .p-button button:not(:first-child) {
+    border-left: 1px solid #888;
+}
+
+.popup.add-subject .p-button button.btn-add:hover {
+    background-color: #0f4;
+}
+
+.popup.add-subject .p-button button.btn-cancel:hover {
+    background-color: red;
+}

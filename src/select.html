@@ -1,0 +1,201 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="./style/select.css">
+    <link rel="stylesheet" href="./style/format.css">
+</head>
+
+<body class="f">
+    <div class="header f a">
+        <div class="card history ">
+            <div class="up f c">
+                <span>History</span>
+            </div>
+            <div class="down f c">
+                <span>Open your saved table in STR local storage</span>
+            </div>
+        </div>
+        <div class="card create ">
+            <div class="up f c">
+                <span>Create</span>
+            </div>
+            <div class="down f c">
+                <span>Create new table and define it's attribute</span>
+            </div>
+        </div>
+        <div class="card import">
+            <div class="up f c">
+                <span>Import</span>
+            </div>
+            <div class="down f c">
+                <span>Import data base from a table r-key file</span>
+            </div>
+        </div>
+    </div>
+    <div class="panel history hidden f">
+        <div class="inner f"></div>
+    </div>
+    <div class="panel create hidden f a v">
+        <div class="create-name f c">
+            <span>Table Name: </span>
+            <input type="text" id="create-tname">
+        </div>
+        <div class="table f">
+            <div class="inner">
+                <!-- <div class="subject f e">
+                    <span class="f c">
+                        <label>Math</label>
+                    </span>
+                    <button>Delete</button>
+                </div> -->
+            </div>
+        </div>
+        <div class="button f a active">
+            <button class="clear-list">Clear</button>
+            <button class="create-table">Create</button>
+            <button class="add-subject">Add</button>
+        </div>
+    </div>
+    <div class="panel import hidden f a v">
+        <div class="select-file">
+            <div class="ui f c">
+                <span>CHOOSE A FILE</span>
+            </div>
+            <input type="file" accept=".trk" id="">
+        </div>
+        <div class="preview f">
+            <div class="inner">
+                <div class="subject f e">
+                    <span class="f c">
+                        <label>IMPORT CURRENT CAN'T BE USED</label>
+                    </span>
+                    <!-- <button>Delete</button> -->
+                </div>
+            </div>
+        </div>
+        <div class="button f a">
+            <button class="imp-all">Import All</button>
+            <button class="imp-subject">Import Subject</button>
+            <button class="imp-add">Add Subject</button>
+            <button class="imp-clr">Clear</button>
+        </div>
+    </div>
+    <div class="p-pan add-subject">
+        <div class="popup add-subject f a v">
+            <div class="p-header f c">
+                <span>Subject Name</span>
+            </div>
+            <div class="p-body f a v">
+                <input type="text">
+            </div>
+            <div class="p-button f a">
+                <button class="btn-add">Add</button>
+                <button class="btn-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const { remote } = require('electron');
+
+        (function () {
+            const toggle = require('./script/ui/toggle-panel-sm');
+            const $ = require('jquery');
+            const data_base = require('./script/template/data');
+
+            $('.header .card.history').click(function () {
+                if (!$('.header .card.history').hasClass('active')) load_history();
+                toggle._history();
+            });
+            $('.header .card.create').click(function () {
+                toggle._create();
+            });
+            $('.header .card.import').click(function () {
+                toggle._import();
+            });
+            $('.panel.create .button button.add-subject').click(function () {
+                $('.p-pan.add-subject').addClass('active');
+                $('.p-pan .popup.add-subject input')[0].focus();
+            });
+            $('.panel.create .button button.clear-list').click(function () {
+                $('.panel.create .table .inner')[0].innerHTML = '';
+                $('.panel.create .create-name input')[0].value = '';
+            });
+            $('.panel.create .button button.create-table').click(function () {
+                let table_name = $('#create-tname')[0].value;
+                let el_list = $('.panel.create .table .inner .subject span label');
+                if (table_name == '') {
+                    new Notification('Create Table Error', { body: 'Please Insert Table Name' });
+                    return;
+                }
+                if (el_list.length == 0) {
+                    new Notification('Create Table Error', { body: 'Please Put some subject' });
+                    return;
+                }
+                data_base.create_table(table_name);
+                for (let i = 0; i < el_list.length; ++i)
+                    setTimeout(function() {
+                        data_base.add_subject(table_name, el_list[i].innerText);
+                    }, 10);
+                $('.header .card.history')[0].click();
+            });
+            $('.p-pan .popup.add-subject .p-button .btn-cancel').click(function () {
+                $('.p-pan.add-subject').removeClass('active');
+            });
+            $('.p-pan .popup.add-subject .p-button .btn-add').click(function () {
+                $('.p-pan.add-subject').removeClass('active');
+                create_add_sbj($('.p-pan .popup.add-subject input')[0].value);
+            });
+
+            function load_history() {
+                $('.panel.history .inner')[0].innerHTML = '';
+                let color_list = ["#800000", "#8B0000", "#A52A2A", "#B22222", "#DC143C", "#FF0000", "#FF6347", "#FF7F50", "#CD5C5C", "#F08080", "#E9967A", "#FA8072", "#FFA07A", "#FF4500", "#FF8C00", "#FFA500", "#FFD700", "#B8860B", "#DAA520", "#EEE8AA", "#BDB76B", "#F0E68C", "#808000", "#FFFF00", "#9ACD32", "#556B2F", "#6B8E23", "#7CFC00", "#7FFF00", "#ADFF2F", "#006400", "#008000", "#228B22", "#00FF00", "#32CD32", "#90EE90", "#98FB98", "#8FBC8F", "#00FA9A", "#00FF7F", "#2E8B57", "#66CDAA", "#3CB371", "#20B2AA", "#2F4F4F", "#008080", "#008B8B", "#00FFFF", "#00FFFF", "#E0FFFF", "#00CED1", "#40E0D0", "#48D1CC", "#AFEEEE", "#7FFFD4", "#B0E0E6", "#5F9EA0", "#4682B4", "#6495ED", "#00BFFF", "#1E90FF", "#ADD8E6", "#87CEEB", "#87CEFA", "#191970", "#000080", "#00008B", "#0000CD", "#0000FF", "#4169E1", "#8A2BE2", "#4B0082", "#483D8B", "#6A5ACD", "#7B68EE", "#9370DB", "#8B008B", "#9400D3", "#9932CC", "#BA55D3", "#800080", "#D8BFD8", "#DDA0DD", "#EE82EE", "#FF00FF", "#DA70D6", "#C71585", "#DB7093", "#FF1493", "#FF69B4", "#FFB6C1", "#FFC0CB", "#FAEBD7", "#F5F5DC", "#FFE4C4", "#FFEBCD", "#F5DEB3", "#FFF8DC", "#FFFACD", "#FAFAD2", "#FFFFE0", "#8B4513", "#A0522D", "#D2691E", "#CD853F", "#F4A460", "#DEB887", "#D2B48C", "#BC8F8F", "#FFE4B5", "#FFDEAD", "#FFDAB9", "#FFE4E1", "#FFF0F5", "#FAF0E6", "#FDF5E6", "#FFEFD5", "#FFF5EE", "#F5FFFA", "#708090", "#778899", "#B0C4DE", "#E6E6FA", "#FFFAF0", "#F0F8FF", "#F8F8FF", "#F0FFF0", "#FFFFF0", "#F0FFFF", "#FFFAFA", "#000000", "#696969", "#808080", "#A9A9A9", "#C0C0C0", "#D3D3D3", "#DCDCDC", "#F5F5F5"];
+
+                /**@type {{name: string, created: string, description: string}[]} */
+                let data = localStorage[`table_list`];
+                data = JSON.parse(data);
+
+                for (let i = 0; i < data.length; ++i) {
+                    let card = document.createElement('div');
+                    card.className = 'table';
+                    card.style.setProperty('--card-bg', color_list[Math.round(Math.random() * (color_list.length - 1))]);
+                    card.innerHTML = `<div class="name f c"><span></span></div><div class="description f c v"><div class="created f c v"><span></span><span></span><span></span></div></div>`;
+
+                    card.children[0].children[0].innerHTML = data[i].name;
+                    card.children[1].children[0].children[0].innerHTML = new Date(data[i].created).toLocaleDateString();
+                    card.children[1].children[0].children[1].innerHTML = new Date(data[i].created).toLocaleTimeString();
+                    card.children[1].children[0].children[2].innerHTML = data[i].description;
+
+                    card.addEventListener('click', function () {
+                        sessionStorage[`selected_table`] = JSON.stringify(data[i]);
+                        remote.getCurrentWindow().loadURL(require('url').format({
+                            protocol: 'file:',
+                            pathname: require('path').join(__dirname, 'editor.html'),
+                            slashes: true
+                        }));
+                    });
+
+                    $('.panel.history .inner')[0].appendChild(card);
+                }
+            }
+
+            function create_add_sbj(subject) {
+                if (subject == '') return;
+                let el_list = $('.panel.create .table .inner .subject span label');
+                for (let i = 0; i < el_list.length; ++i)
+                    if (subject == el_list[i].innerText) return;
+
+                let row = document.createElement('div');
+                row.className = `subject f e`;
+                row.innerHTML = `<span class="f c"><label></label></span><button>Delete</button>`;
+                row.children[0].children[0].innerText = subject;
+                $('.panel.create .table .inner')[0].appendChild(row);
+                row.children[1].addEventListener('click', function () {
+                    row.parentElement.removeChild(row);
+                });
+            }
+
+        }).call(this)
+    </script>
+</body>
+
+</html>

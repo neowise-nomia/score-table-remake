@@ -1,0 +1,87 @@
+
+#login-panel {
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    position: absolute;
+}
+
+#login-panel .inner {
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #ffffff;
+    transition: 300ms;
+}
+
+#login-panel .inner.active {
+    box-shadow: #0001 1px 1px 2px, #0001 -1px -1px 2px;
+}
+
+#login-panel .inner:hover {
+    box-shadow: #0001 3px 3px 10px, #0001 -3px -3px 10px;
+}
+
+#login-panel .inner.login {
+    transform: translate(-50%, -50%);
+}
+
+#login-panel .inner.login.active {
+    z-index: 2;
+}
+
+#login-panel .inner.login.transform {
+    transform: translate(-100%, -100%);
+}
+
+#login-panel .inner.signup {
+    transform: translate(-50%, -50%);
+}
+
+#login-panel .inner.signup.active {
+    z-index: 2;
+}
+
+#login-panel .inner.signup.transform {
+    transform: translate(-0%, -0%);
+}
+
+#login-panel .inner .title {
+    width: 100%;
+    height: 30px;
+}
+
+#login-panel .inner .body {
+    width: 100%;
+}
+
+#login-panel .inner .body .inp div {
+    width: 250px;
+    height: 15px;
+    font-size: x-small;
+}
+
+#login-panel .inner .body .inp input {
+    width: 100%;
+    height: 25px;
+    border: none;
+    box-shadow: #0001 1px 1px 1px inset;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+#login-panel .inner .button button {
+    width: 60px;
+    height: 20px;
+    background-color: #fff;
+    border: none;
+    outline: none;
+    transition: 400ms;
+    margin-top: 10px;
+}
+
+#login-panel .inner .button button:hover {
+    box-shadow: #0001 1px 1px 4px;
+}

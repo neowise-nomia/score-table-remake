@@ -1,0 +1,17 @@
+{
+  "name": "score_table_remake",
+  "version": "1.0.0",
+  "description": "Remake Version of Score Table",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Katayoki",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^9.0.5",
+    "electron-prompt": "^1.5.1",
+    "jquery": "^3.5.1",
+    "websql": "^1.0.0"
+  }
+}

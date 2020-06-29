@@ -1,0 +1,103 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/format.css">
+    <!-- <script src="./script/ui/jquery.js"></script> -->
+</head>
+
+<body>
+    <div id="login-panel">
+        <div class="inner login f c v">
+            <div class="title f c">
+                <span>LOG IN</span>
+            </div>
+            <div class="body f c v">
+                <div class="inp">
+                    <div>Username</div>
+                    <input type="text" id="login-usr">
+                </div>
+                <div class="inp">
+                    <div>Password</div>
+                    <input type="password" id="login-psw">
+                </div>
+            </div>
+            <div class="button">
+                <button>Go</button>
+            </div>
+        </div>
+        <div class="inner signup f c v active">
+            <div class="title f c">
+                <span>SIGN UP</span>
+            </div>
+            <div class="body f c v">
+                <div class="inp">
+                    <div>Username</div>
+                    <input type="text" id="signup-usr">
+                </div>
+                <div class="inp">
+                    <div>Password</div>
+                    <input type="password" id="signup-psw">
+                </div>
+            </div>
+            <div class="button">
+                <button>Go</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        (function () {
+            const _user = require('./script/template/user');
+            const $ = require('jquery');
+            const _login = require('./script/ui/login');
+            const { remote } = require('electron');
+            const url = require('url');
+            const path = require('path');
+
+            remote.getCurrentWindow().setTitle('WELCOME');
+
+            if (_user.check_use()) {
+                $('.inner.login').addClass('active');
+                $('.inner.signup').removeClass('active');
+            }
+
+            $('#login-panel .inner.signup .button button').click(function () {
+                console.log('clicked to signup');
+                try {
+                    // debugger;
+                    _user.sign_up(
+                        document.getElementById('signup-usr').value,
+                        document.getElementById('signup-psw').value
+                    );
+                    _login.turn_login();
+                    _user.create_user();
+                } catch (err) {
+                    new Notification('Signup failed', {
+                        body: err + ''
+                    });
+                }
+            });
+
+            $('#login-panel .inner.login .button button').click(function () {
+                try {
+                    if (_user.login(
+                        document.getElementById('login-usr').value,
+                        document.getElementById('login-psw').value
+                    )) {
+                        remote.getCurrentWindow().loadURL(url.format({
+                            protocol: 'file:',
+                            pathname: path.join(__dirname, 'select.html'),
+                            slashes: true
+                        }));
+                    }
+                } catch (err) {
+                    new Notification('Login failed', {
+                        body: err
+                    });
+                }
+            })
+        }).call(this)
+    </script>
+</body>
+
+</html>
