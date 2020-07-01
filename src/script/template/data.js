@@ -126,16 +126,15 @@ function add_subject(table_name, subject) {
  * @param {string} table_name
  * @param {string | number} subject
  * @param {1 | 2 | 3} type
- * @param {function ({t1: [], t2:[], t3:[]})} _callback 
+ * @param {function ({rows: {id: string, sbj: string, t1: string, t2: string, t3: string}[], length: number})} _callback 
  */
-function get_data(table_id, subject_id, type, _callback) {
+function get_data(table_id, _callback) {
     let query = '';
-    if (type == 0) query = `SELECT t1, t2, t3 FROM ${table_id} WHERE id = ?`;
-    else `SELECT t${type} FROM ${table_id} WHERE id = ?`
+    if (type == 0) query = `SELECT * FROM ${table_id} WHERE id > 0`;
     execute(
         query,
-        [subject_id],
-        function (tx, re) { _callback(re.rows[0]); }
+        [],
+        function (tx, re) { _callback(re]); }
     );
 }
 
