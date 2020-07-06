@@ -133,10 +133,10 @@
                 }
                 data_base.create_table(table_name);
                 for (let i = 0; i < el_list.length; ++i)
-                    setTimeout(function() {
-                        data_base.add_subject(table_name, el_list[i].innerText);
-                    }, 10);
-                $('.header .card.history')[0].click();
+                    data_base.add_subject(table_name, el_list[i].innerText, i);
+                setTimeout(function() {
+                    $('.header .card.history')[0].click();
+                }, 1000);
             });
             $('.p-pan .popup.add-subject .p-button .btn-cancel').click(function () {
                 $('.p-pan.add-subject').removeClass('active');

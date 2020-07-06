@@ -588,13 +588,13 @@ button {
     top: 0;
     left: 0;
     visibility: hidden;
-    backdrop-filter: blur(0) grayscale(0) brightness(1);
+    backdrop-filter: grayscale(0) brightness(1);
     transition: 500ms;
 }
 
 .p-pan.active {
     visibility: visible;
-    backdrop-filter: blur(3px) grayscale(1) brightness(0.5);
+    backdrop-filter: grayscale(1) brightness(0.5);
 }
 
 .popup {

@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
+    user-select: none;
 }
 
 body {
@@ -14,6 +15,8 @@ body {
     width: 300px;
     height: 100%;
     position: absolute;
+    top: 0;
+    left: 0;
     /* background-color: rgb(78, 78, 78); */
 }
 
@@ -22,6 +25,7 @@ body {
     height: 60px;
     background-color: rgb(255, 255, 255);
     color: #000;
+    /* position: absolute; */
 }
 
 .side-bar .header .title {
@@ -99,7 +103,8 @@ body {
 
 .side-bar .list {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 60px);
+    /* position: absolute; */
 }
 
 .side-bar .list .subject {
@@ -119,6 +124,7 @@ body {
     animation-duration: calc(var(--element-pos) * 100ms);
 }
 
+
 @keyframes subject-appare {
     from {
         transform: translateY(-100px) translateX(-50%);
@@ -133,7 +139,8 @@ body {
     margin-top: 10px;
 }
 
-.side-bar .list .subject:hover {
+.side-bar .list .subject.focused, 
+.side-bar .list .subject:hover{
     box-shadow: #0003 2px 2px 8px, #0003 -2px -2px 8px;
     transform: translateX(calc(-50% + 3px));
 }
@@ -175,6 +182,7 @@ body {
     top: 0;
     background-color: #fff;
     box-shadow: #0002 3px 3px 7px, #0002 -3px -3px 7px;
+    z-index: 3;
 }
 
 .editor .loading {
@@ -343,6 +351,34 @@ body {
     width: 100%;
     height: 100%;
     position: absolute;
+    transform: translateX(100px);
+    visibility: hidden;
+    opacity: 0;
+    transition: 300ms;
+}
+
+.editor .details.active {
+    transform: translateX(0px);
+    visibility: visible;
+    opacity: 1;
+    z-index: 20;
+}
+
+.editor .details.transi {
+    animation-name: details-transi;
+    animation-timing-function: ease-in-out;
+    animation-duration: 300ms;
+}
+
+@keyframes details-transi {
+    0%, 100% {
+        /* transform: translateX(0px); */
+        opacity: 1;
+    }
+    50% {
+        /* transform: translateX(100px); */
+        opacity: 0;
+    }
 }
 
 .editor .details .container {
@@ -382,9 +418,20 @@ body {
     width: calc(100% - 40px);
 }
 
-.editor .details .container.left .e-m .e-head button {
-    width: 40px;
-    height: 40px;
+.editor .details .container.left .e-m .e-head .--btn-edit {
+    visibility: hidden;
+    opacity: 0;
+    transition: 300ms;
+}
+
+.editor .details .container.left .e-m .e-head .--btn-edit.focusable {
+    visibility: visible;
+    opacity: 1;
+}
+
+.editor .details .container.left .e-m .e-head .--btn-edit img {
+    width: 30px;
+    height: 30px;
     /* transform: translateX(10px); */
     background-color: #0000;
     border: none;
@@ -432,4 +479,88 @@ body {
 
 .editor .details .container.right .r-m.stat {
     height: calc((33.3% - 20px) * 2 + 20px);
+}
+
+.app-menu {
+    width: 300px;
+    height: 0px;
+    position: absolute;
+    z-index: 2;
+    background: #fff;
+    top: 60px;
+    transition: 300ms;
+}
+
+.app-menu.active {
+    height: 246px;
+}
+
+.app-menu .zone {
+    width: 100%;
+    height: auto;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.app-menu .zone:not(:last-child) {
+    border-bottom: 1px solid #888;
+}
+
+.app-menu .zone .selection {
+    padding: 10px;
+    width: 100%;
+    visibility: hidden;
+    transition: 300ms;
+}
+
+.app-menu.active .zone .selection {
+    visibility: visible;
+    /* animation-duration: calc(var(--sel-pos) * 100ms); */
+    /* animation-name: appare-sel; */
+}
+
+.app-menu .zone.danger .selection:hover {
+    background-color: #f004;
+}
+
+.app-menu .zone.safe .selection:hover {
+    background-color: #0f04;
+}
+
+.app-menu .zone.app .selection:hover {
+    background-color: #00f4;
+}
+
+.app-menu .zone .selection .--foc {
+    width: 100%;
+}
+
+.app-menu .zone .selection .--foc div {
+    width: 80%;
+    margin-left: 20px;
+}
+
+.app-menu .zone .selection.focus {
+    background-color: #5555;
+}
+
+.app-menu .zone .selection.focus .non-focus {
+    display: none;
+}
+
+.app-menu .zone .selection .on-focus {
+    /* position: absolute; */
+    /* width: 300px; */
+    /* height: 50px; */
+    /* visibility: hidden; */
+    display: none;
+}
+
+.app-menu .zone .selection.focus .on-focus {
+    display: flex;
+}
+
+.app-menu .zone .selection img {
+    width: 20px;
+    height: 20px;
 }

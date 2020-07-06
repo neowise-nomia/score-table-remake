@@ -6,10 +6,72 @@
 </head>
 
 <body>
+    <div class="app-menu">
+        <div class="zone safe">
+            <div class="selection f c" id="menu-edit-mode" style="--sel-pos: 1">
+                <div class="--foc non-focus f a">
+                    <img src="./res/pencil-512.png" alt="">
+                    <div class="f s">
+                        <span>Edit Mode</span>
+                    </div>
+                </div>
+                <div class="--foc on-focus f a">
+                    <img src="./res/61-512.png" alt="">
+                    <div class="f s">
+                        <span>Spectate Mode</span>
+                    </div>
+                </div>
+            </div>
+            <div class="selection f c" style="--sel-pos: 2">
+                <div class="--foc non-focus f a">
+                    <img src="./res/save.png" alt="">
+                    <div class="f s">
+                        <span>Sync Table</span>
+                    </div>
+                </div>
+            </div>
+            <div class="selection f c" style="--sel-pos: 3">
+                <div class="--foc non-focus f a">
+                    <img src="./res/export-outline-512.png" alt="">
+                    <div class="f s">
+                        <span>Export Table</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="zone danger">
+            <div class="selection f c" id="menu-discard-change" style="--sel-pos: 4">
+                <div class="--foc non-focus f a">
+                    <img src="./res/3012396-200.png" alt="">
+                    <div class="f s">
+                        <span>Discard Change</span>
+                    </div>
+                </div>
+            </div>
+            <div class="selection f c" id="menu-delete-table" style="--sel-pos: 5">
+                <div class="--foc non-focus f a">
+                    <img src="./res/70772-200.png" alt="">
+                    <div class="f s">
+                        <span>Delete Table</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="zone app">
+            <div class="selection f c" style="--sel-pos: 6">
+                <div class="--foc non-focus f a">
+                    <img src="./res/Windows_Settings_app_icon.png" alt="">
+                    <div class="f s">
+                        <span>Preference</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="side-bar f c v">
         <div class="header f c">
             <div class="title f c">
-                <span>Table Header</span>
+                <span></span>
             </div>
             <div class="button">
                 <svg width="1000px" height="1000px">
@@ -52,6 +114,7 @@
                 <span>%</span>
             </div>
         </div>
+
         <div class="summary">
             <div class="card f c v description" style='--element-pos: 1'>
                 <div class="header f s">
@@ -61,8 +124,9 @@
                         </strong>
                     </span>
                 </div>
-                <div class="container f c">
-                    <span>Description is empty</span>
+                <div class="container f a v">
+                    <span>Date Created: <span id="date-created"></span></span>
+                    <span id="table-description">Description is empty</span>
                 </div>
             </div>
             <div class="card f c v counter" style='--element-pos: 2'>
@@ -77,27 +141,27 @@
                             <span>All Quantities</span>
                         </div>
                         <div class="c-body f c">
-                            <span>10</span>
+                            <span id="all-quanties"></span>
                             <span>mark</span>
                         </div>
                     </div>
                     <div class="desc f c v">
                         <div class="tt f a t1">
                             <span>Type I</span>
-                            <span>6</span>
+                            <span id="quanties-t1"></span>
                         </div>
                         <div class="tt f a t1">
                             <span>Type II</span>
-                            <span>4</span>
+                            <span id="quanties-t2"></span>
                         </div>
                         <div class="tt f a t1">
                             <span>Type III</span>
-                            <span>0</span>
+                            <span id="quanties-t3"></span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card f c v time" style='--element-pos: 3'>
+            <!-- <div class="card f c v time" style='--element-pos: 3'>
                 <div class="header f s">
                     <span>
                         <strong>
@@ -115,38 +179,39 @@
                         <span>20/03/2003 02:03 pm</span>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
-        <div class="details f c">
+
+        <div class="details f c transi">
             <div class="container left f s v">
                 <div class="e-m mark1 f c v">
                     <div class="e-head f s">
                         <span>Type 1 Mark</span>
-                        <button>Edit</button>
+                        <div class="--btn-edit">
+                            <img src="./res/pencil-512.png" alt="">
+                        </div>
                     </div>
-                    <div class="e-container f a">
-                        <span>0</span>
-                        <span>0</span>
-                        <span>0</span>
+                    <div class="e-container f a" id="details-mark-t1">
                     </div>
                 </div>
                 <div class="e-m mark2 f c v">
                     <div class="e-head f s">
                         <span>Type 2 Mark</span>
-                        <button>Edit</button>
+                        <div class="--btn-edit">
+                            <img src="./res/pencil-512.png" alt="">
+                        </div>
                     </div>
-                    <div class="e-container f a">
-                        <span>0</span>
-                        <span>0</span>
+                    <div class="e-container f a" id="details-mark-t2">
                     </div>
                 </div>
                 <div class="e-m mark3 f c v">
                     <div class="e-head f s">
                         <span>Type 3 Mark</span>
-                        <button>Edit</button>
+                        <div class="--btn-edit">
+                            <img src="./res/pencil-512.png" alt="">
+                        </div>
                     </div>
-                    <div class="e-container f a">
-                        <span>0</span>
+                    <div class="e-container f a" id="details-mark-t3">
                     </div>
                 </div>
             </div>

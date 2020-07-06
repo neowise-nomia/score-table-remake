@@ -81,25 +81,10 @@ function execute(query, args, callback = function (tx, re) { }) {
     });
 }
 
-function change_mark(table_name, subject, type, new_mark_list) {
-    let tb = get_table_des(table_name);
-    let sbj_t;
-    for (let i = 0; i < tb.table.sbj.length; ++i) {
-        if (subject === tb.table.sbj[i].name) {
-            sbj_t = tb.table.sbj[i].id;
-            break;
-        }
-    }
-    if (sbj_t == undefined) throw new Error(`Can't find Subject`);
-    // get_data(table_name, subject, type, function(result) {
-    //     // sessionStorage.setItem(`change=${Date.now()}`, JSON.stringify(result));
-    //     execute(
-    //         `UPDATE ${fix_string.create_id(table_name)} SET t${type} = ? WHERE sbj = ?`
-    //     );
-    // });
+function change_mark(table_id, subject_id, type, new_mark_list) {
     execute(
-        `UPDATE ${tb.table.id} SET t${type} = ? WHERE id = ?`,
-        [JSON.stringify(new_mark_list), sbj_t]
+        `UPDATE ${table_id} SET t${type} = ? WHERE id = ?`,
+        [JSON.stringify(new_mark_list), subject_id]
     );
 }
 /**
@@ -107,9 +92,9 @@ function change_mark(table_name, subject, type, new_mark_list) {
  * @param {string} table_name 
  * @param {string} subject 
  */
-function add_subject(table_name, subject) {
+function add_subject(table_name, subject, id) {
     let tb = get_table_des(table_name);
-    let sbjID = Date.now();
+    let sbjID = id;
     tb.table.sbj.push({ name: subject, id: sbjID });
     let tmp = JSON.parse(localStorage[`table_list`]);
     tmp[tb.pos] = tb.table;
@@ -126,15 +111,13 @@ function add_subject(table_name, subject) {
  * @param {string} table_name
  * @param {string | number} subject
  * @param {1 | 2 | 3} type
- * @param {function ({rows: {id: string, sbj: string, t1: string, t2: string, t3: string}[], length: number})} _callback 
+ * @param {function ({rows: {id: string, sbj: string, t1: string, t2: string, t3: string}[]})} _callback 
  */
 function get_data(table_id, _callback) {
-    let query = '';
-    if (type == 0) query = `SELECT * FROM ${table_id} WHERE id > 0`;
     execute(
-        query,
+        `SELECT * FROM ${table_id} WHERE id > 0`,
         [],
-        function (tx, re) { _callback(re]); }
+        function (tx, re) { _callback(re); }
     );
 }
 
@@ -153,7 +136,7 @@ function get_table_des(name) {
     return { pos: i, table: target };
 }
 
-function delete_table(name) {
+function delete_table(name, _on_success) {
     /**@type {{name: string, created: string, description: string, id: string}[]} */
     let rv = JSON.parse(localStorage[`table_list`]);
     /**@type {{name: string, created: string, description: string, id: string}} */
@@ -166,7 +149,9 @@ function delete_table(name) {
             tmp.push(rv[i]);
         }
     localStorage[`table_list`] = JSON.stringify(tmp);
-    execute(`DROP TABLE IF EXISTS ${target.id}`);
+    execute(`DROP TABLE IF EXISTS ${target.id}`, [], function() {
+        _on_success();
+    });
 }
 
 function create_table(name, description = '') {
