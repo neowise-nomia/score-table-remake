@@ -9,7 +9,7 @@
   "author": "Katayoki",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^9.0.5",
+    "electron": "^9.4.0",
     "electron-prompt": "^1.5.1",
     "jquery": "^3.5.1",
     "websql": "^1.0.0"
